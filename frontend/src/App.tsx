@@ -1,32 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='h-screen w-screen flex justify-center bg-[#e0d1b8]' >
+      <div className='self-center p-4'>
+        <div className='flex gap-2 text-[#070804] p-2'>
+          <h1 className='self-center w-8 h-8 md:w-16 md:h-16  p-4 bg-[#358546] rounded-full'></h1>
+          <h1 className='self-center text-4xl md:text-8xl font-bold'>Daily Vegan</h1>
+          
+        </div>
+        <h1 className=' border-b-4 border-[#358546] '></h1>
+        <div className='text-wrap text-center mt-2'>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+          <div className='flex justify-center gap-2 mt-4'>
+            <button className='bg-[#358546] text-[#e0d1b8] hover:opacity-90 text-2xl px-2 py-1 rounded-xl transition duration-700 ease-in-out'>Recipes</button>
+            <button className='bg-[#358546] text-[#e0d1b8] hover:opacity-90 text-2xl px-2 py-1 rounded-xl transition duration-700 ease-in-out'>Personal</button>
+            </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
