@@ -1,6 +1,7 @@
-type DishInfo = {
+export type DishInfo = {
   name: string;
   description: string;
+  ingredients?: string[];
   category: string;
   preparation_time: number;
 };
