@@ -1,9 +1,4 @@
-type DishInfo = {
-  name: string;
-  description: string;
-  category: string;
-  preparation_time: number;
-};
+import type { DishInfo } from "../main_dish/main_dish.component";
 
 const NormalDish = ({ ...info }: DishInfo) => {
   return (
