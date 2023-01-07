@@ -1,11 +1,19 @@
+import { useDispatch } from "react-redux";
+import { switch_view } from "../../redux/dish/dish";
+
 import type { DishInfo } from "../main_dish/main_dish.component";
 
 const DishDetails = ({ ...item }: DishInfo) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="centered z-10  md:w-96 pattern2 border border-black rounded-xl">
       <div className="bg-[#358546]/80 text-white font-bold flex justify-between rounded-t-xl p-1">
         <span className="self-center text-sm px-2 ">Dish Details</span>
-        <button className="mx-2 self-center bg-white text-[#358546] hover:text-red-600 text-xl px-2 rounded-full transition durarion-700 ease-in-out">
+        <button
+          onClick={() => dispatch(switch_view())}
+          className="mx-2 self-center bg-white text-[#358546] hover:text-red-600 text-xl px-2 rounded-full transition durarion-700 ease-in-out"
+        >
           X
         </button>
       </div>
