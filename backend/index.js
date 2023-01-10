@@ -19,9 +19,11 @@ database.once('connected', ()=>{
 const app = express();
 app.use(express.json());
 
-const routes = require('./routes/routes');
+const recipesRoutes = require('./routes/recipes/routes');
+const ingredientsRoutes = require('./routes/ingredients/routes');
 
-app.use('/api', routes)
+app.use('/api/recipes/', recipesRoutes);
+app.use('/api/ingredients', ingredientsRoutes);
 
 app.listen(3000, ()=>{
     console.log(`Server Started at port ${3000}`);

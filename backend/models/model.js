@@ -7,6 +7,8 @@ const ingredientsSchema = new mongoose.Schema({
     }
 });
 
+const ingredientsModel = mongoose.model("Ingredients",ingredientsSchema);
+
 const recipesSchema = new mongoose.Schema({
     name: {
         required: true,
@@ -16,7 +18,7 @@ const recipesSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    ingredients:[ingredientsSchema],
+    ingredients:[{type:mongoose.Schema.Types.ObjectId, ref:"ingredients"}],
     category:{
         required:true,
         type:String
@@ -24,11 +26,15 @@ const recipesSchema = new mongoose.Schema({
     preparation_time:{
         required:true,
         type:Number
+    },
+    special:{
+        required:true,
+        type:Boolean
     }
 })
 
-const ingredientsModel = mongoose.model("ingredientsModel",ingredientsSchema);
-const recipesModel = mongoose.model("recipesModel", recipesSchema);
+
+const recipesModel = mongoose.model("Recipes", recipesSchema);
 
 module.exports = {
     ingredientsModel:ingredientsModel,
