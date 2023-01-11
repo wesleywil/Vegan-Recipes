@@ -1,15 +1,23 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from "../../redux/store";
+import { fetchRecipes } from "../../redux/dish/dish";
 
 import MainDish from "../../components/main_dish/main_dish.component";
 import NormalDish from "../../components/normal_dish/normal_dish.component";
 import DishDetails from "../../components/dish_details/dish_details.component";
-import { useEffect } from "react";
 
 const Recipes = () => {
   const in_view = useSelector((state: RootState) => state.dish.in_view);
+  const recipes = useSelector((state: RootState) => state.dish.recipes);
+  const special = useSelector((state: RootState) => state.dish.special_recipe);
+  const status = useSelector((state: RootState) => state.dish.status);
+  const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(fetchRecipes());
+  }, [status, recipes]);
+
   return (
     <div className=" h-full w-screen flex flex-col ">
       {in_view ? (
@@ -28,60 +36,21 @@ const Recipes = () => {
         Recipes
       </h1>
       <MainDish
-        name="special dish"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tellus. "
-        category="Main Dish"
-        preparation_time={30}
+        name={special!.name}
+        description={special!.description}
+        category={special!.category}
+        preparation_time={special!.preparation_time}
       />
       <div className="flex flex-wrap p-4 md:justify-center xl:justify-start gap-2 mt-2">
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
-        <NormalDish
-          name="special dish"
-          description=" "
-          category="Main Dish"
-          preparation_time={30}
-        />
+        {recipes.map((item) => (
+          <NormalDish
+            key={item.id}
+            name={item.name}
+            description={item.description}
+            category={item.category}
+            preparation_time={item.preparation_time}
+          />
+        ))}
       </div>
     </div>
   );
