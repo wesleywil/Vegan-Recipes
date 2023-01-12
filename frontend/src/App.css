@@ -12,3 +12,22 @@
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
   }
+
+svg{
+    font-size: 6rem;
+    font-weight: bold;
+    width: 450px;
+    height: 150px;
+    fill: rgba(255, 255, 255, 0);
+    text-align: center;
+    margin: 2px auto;
+}
+
+.svgText {
+    align-self: center;
+    fill: rgba(255, 255, 255, 0);
+    stroke: #358546d8;
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    paint-order: stroke;
+  }

@@ -21,7 +21,7 @@ const MainDish = ({ ...info }: DishInfo) => {
         backgroundSize: "cover",
       }}
     >
-      <div className="w-11/12 mx-auto flex flex-col gap-2 items-center px-8 py-12 text-[white] bg-[#070804]/70 backdrop-blur-sm rounded-xl">
+      <div className="w-11/12 mx-auto flex flex-col gap-2 items-center px-8 py-12 text-[white]/90 bg-[#358546]/40 backdrop-blur-sm rounded-xl">
         <h1 className="self-center text-6xl font-bold uppercase">
           {info.name}
         </h1>

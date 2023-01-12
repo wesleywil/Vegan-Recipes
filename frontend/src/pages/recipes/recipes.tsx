@@ -19,7 +19,7 @@ const Recipes = () => {
   }, [status, recipes]);
 
   return (
-    <div className=" h-full w-screen flex flex-col ">
+    <div className=" h-full min-h-screen	 w-screen flex flex-col ">
       {in_view ? (
         <DishDetails
           name="vegan barbecue"
@@ -31,10 +31,14 @@ const Recipes = () => {
       ) : (
         ""
       )}
-
-      <h1 className="text-8xl text-center font-bold my-8 underline text-[#358546]/90">
+      <svg viewBox="0 0 450 150">
+        <text className="svgText" x="50" y="90">
+          Recipes
+        </text>
+      </svg>
+      {/* <h1 className="text-8xl text-center font-bold my-8 underline text-[#358546]/90">
         Recipes
-      </h1>
+      </h1> */}
       <MainDish
         name={special!.name}
         description={special!.description}
