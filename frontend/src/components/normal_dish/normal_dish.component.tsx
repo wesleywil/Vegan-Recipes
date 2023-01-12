@@ -1,6 +1,10 @@
 import type { DishInfo } from "../main_dish/main_dish.component";
+import ButtonDetails from "../button_details/button_details.component";
 
 const NormalDish = ({ ...info }: DishInfo) => {
+  const anything = () => {
+    console.log("TEST");
+  };
   return (
     <div
       className="w-64 h-64 p-4 rounded-2xl border-2 border-[#358546]"
@@ -15,9 +19,7 @@ const NormalDish = ({ ...info }: DishInfo) => {
         <h1 className="text-3xl font-semibold p-2">{info.name}</h1>
         <h2 className="hidden">{info.description}</h2>
         <div>
-          <button className="hover:text-[#070804] hover:font-bold bg-[#358546] border-2 border-[#358546] px-2 rounded text-xl hover:opacity-90 hover:bg-transparent transition duration-700 ease-in-out">
-            More Info
-          </button>
+          <ButtonDetails handleClick={anything} />
         </div>
         <h3>
           {info.category} - {info.preparation_time}m

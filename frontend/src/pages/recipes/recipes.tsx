@@ -15,8 +15,10 @@ const Recipes = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchRecipes());
-  }, [status, recipes]);
+    if (status === "idle") {
+      dispatch(fetchRecipes());
+    }
+  }, [status]);
 
   return (
     <div className=" h-full min-h-screen	 w-screen flex flex-col ">
@@ -46,9 +48,9 @@ const Recipes = () => {
         preparation_time={special!.preparation_time}
       />
       <div className="flex flex-wrap p-4 md:justify-center xl:justify-start gap-2 mt-2">
-        {recipes.map((item) => (
+        {recipes.map((item, i) => (
           <NormalDish
-            key={item.id}
+            key={i}
             name={item.name}
             description={item.description}
             category={item.category}

@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { switch_view } from "../../redux/dish/dish";
 
+import ButtonDetails from "../button_details/button_details.component";
+
 export type DishInfo = {
   name: string;
   description: string;
@@ -11,6 +13,10 @@ export type DishInfo = {
 
 const MainDish = ({ ...info }: DishInfo) => {
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(switch_view());
+  };
   return (
     <div
       className="w-full px-4 py-24"
@@ -29,12 +35,7 @@ const MainDish = ({ ...info }: DishInfo) => {
         <div className="flex gap-4 justify-center text-xl">
           <h3>{info.category}</h3>-<h3>Time: {info.preparation_time}m</h3>
         </div>
-        <button
-          onClick={() => dispatch(switch_view())}
-          className="hover:font-bold bg-[#358546] border-2 border-[#358546] px-2 rounded text-xl hover:opacity-90 hover:bg-transparent transition duration-700 ease-in-out"
-        >
-          More Info
-        </button>
+        <ButtonDetails handleClick={handleClick} />
       </div>
     </div>
   );
