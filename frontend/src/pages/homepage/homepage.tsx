@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 function Homepage() {
+  const navigate = useNavigate();
   return (
     <div className="h-screen w-screen flex justify-center">
       <div className="self-center p-4">
@@ -12,7 +15,10 @@ function Homepage() {
         <div className="text-wrap text-center mt-2">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
           <div className="flex justify-center gap-2 mt-4">
-            <button className="bg-[#358546] text-[#e0d1b8] hover:opacity-90 text-2xl px-2 py-1 rounded-xl transition duration-700 ease-in-out">
+            <button
+              onClick={() => navigate("/recipes")}
+              className="bg-[#358546] text-[#e0d1b8] hover:opacity-90 text-2xl px-2 py-1 rounded-xl transition duration-700 ease-in-out"
+            >
               Recipes
             </button>
             <button className="bg-[#358546] text-[#e0d1b8] hover:opacity-90 text-2xl px-2 py-1 rounded-xl transition duration-700 ease-in-out">
