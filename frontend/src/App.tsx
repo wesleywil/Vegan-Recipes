@@ -5,6 +5,7 @@ import Homepage from "./pages/homepage/homepage";
 import Recipes from "./pages/recipes/recipes";
 
 import "./App.css";
+import Main from "./admin/pages/main/main";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/recipes" element={<Recipes />} />
+          <Route path="/admin" element={<Main />} />
         </Routes>
       </BrowserRouter>
     </div>
