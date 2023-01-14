@@ -68,12 +68,9 @@ export const dishSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchRecipes.fulfilled, (state, { payload }) => {
-        const no_special_recipes = payload.filter(
-          (item: Recipes) => item.special !== true
-        );
         const special = payload.find((item: Recipes) => item.special);
         state.status = "succeeded";
-        state.recipes = no_special_recipes;
+        state.recipes = payload;
         state.special_recipe = special;
       })
       .addCase(fetchRecipes.rejected, (state) => {
