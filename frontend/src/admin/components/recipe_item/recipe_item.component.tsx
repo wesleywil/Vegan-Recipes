@@ -1,3 +1,10 @@
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../redux/store";
+import {
+  switch_form_view,
+  switch_delete_view,
+} from "../../../redux/admin/admin";
+
 type RecipeItemInfo = {
   id: string;
   name: string;
@@ -7,6 +14,8 @@ type RecipeItemInfo = {
 };
 
 const RecipeItem = ({ ...item }: RecipeItemInfo) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <div className="w-full flex p-1">
       <div className="w-full self-center px-2 flex justify-between  text-white bg-[#358546d8]/60 z-10 rounded-xl">
@@ -20,10 +29,16 @@ const RecipeItem = ({ ...item }: RecipeItemInfo) => {
           </h3>
         </div>
         <div className="flex self-center gap-2 p-2">
-          <button className="flex-none h-8 px-2 bg-yellow-500 hover:bg-yellow-300 text-white hover:text-gray-600 font-bold  rounded-xl transform duration-700 ease-in-out">
+          <button
+            onClick={() => dispatch(switch_form_view())}
+            className="flex-none h-8 px-2 bg-yellow-500 hover:bg-yellow-300 text-white hover:text-gray-600 font-bold  rounded-xl transform duration-700 ease-in-out"
+          >
             Edit
           </button>
-          <button className="flex-none h-8 px-2  bg-red-500 hover:bg-red-300 text-white hover:text-gray-600 font-bold  rounded-xl transform duration-700 ease-in-out">
+          <button
+            onClick={() => dispatch(switch_delete_view())}
+            className="flex-none h-8 px-2  bg-red-500 hover:bg-red-300 text-white hover:text-gray-600 font-bold  rounded-xl transform duration-700 ease-in-out"
+          >
             Del
           </button>
         </div>

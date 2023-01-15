@@ -1,4 +1,9 @@
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../redux/store";
+import { switch_delete_view } from "../../../redux/admin/admin";
+
 const DeleteConfirmation = () => {
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <div className="w-1/2 mx-auto flex gap-2 justify-center font-bold text-center text-[#358546] text-xl mb-2">
       <h1>Are you sure you want to delete this recipe?</h1>
@@ -7,7 +12,10 @@ const DeleteConfirmation = () => {
           Yes
         </button>
         /
-        <button className="text-blue-600 hover:text-blue-800 transform duration-700 ease-in-out">
+        <button
+          onClick={() => dispatch(switch_delete_view())}
+          className="text-blue-600 hover:text-blue-800 transform duration-700 ease-in-out"
+        >
           No
         </button>
       </div>
