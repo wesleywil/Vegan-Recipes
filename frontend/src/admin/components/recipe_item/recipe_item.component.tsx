@@ -4,6 +4,7 @@ import {
   switch_form_view,
   switch_delete_view,
 } from "../../../redux/admin/admin";
+import { selectById } from "../../../redux/dish/dish";
 
 type RecipeItemInfo = {
   id: string;
@@ -15,6 +16,11 @@ type RecipeItemInfo = {
 
 const RecipeItem = ({ ...item }: RecipeItemInfo) => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const handleEdit = () => {
+    dispatch(switch_form_view());
+    dispatch(selectById(item.id));
+  };
 
   return (
     <div className="w-full flex p-1">
@@ -30,7 +36,7 @@ const RecipeItem = ({ ...item }: RecipeItemInfo) => {
         </div>
         <div className="flex self-center gap-2 p-2">
           <button
-            onClick={() => dispatch(switch_form_view())}
+            onClick={() => handleEdit()}
             className="flex-none h-8 px-2 bg-yellow-500 hover:bg-yellow-300 text-white hover:text-gray-600 font-bold  rounded-xl transform duration-700 ease-in-out"
           >
             Edit

@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface Recipes {
-  id?: string;
+  _id: string;
   name: string;
   description: string;
   ingredients?: Array<{ id: string }>;
@@ -24,7 +24,7 @@ const initialState: DishState = {
   in_view: false,
   recipes: [],
   recipe: {
-    id: "",
+    _id: "",
     name: "",
     description: "",
     ingredients: [],
@@ -33,7 +33,7 @@ const initialState: DishState = {
     special: false,
   },
   special_recipe: {
-    id: "",
+    _id: "",
     name: "",
     description: "",
     ingredients: [],
@@ -65,12 +65,37 @@ export const createRecipe = createAsyncThunk(
   }
 );
 
+export const updateRecipe = createAsyncThunk(
+  "recipes/updateRecipe",
+  async (data: any) => {
+    const res = await axios.patch(
+      `http://localhost:3000/api/recipes/update/${data.id}`,
+      data
+    );
+    return res.data;
+  }
+);
+
 export const dishSlice = createSlice({
   name: "dish",
   initialState,
   reducers: {
     switch_view: (state) => {
       state.in_view = !state.in_view;
+    },
+    cleanRecipeSelection: (state) => {
+      state.recipe = {
+        _id: "",
+        name: "",
+        description: "",
+        ingredients: [],
+        category: "",
+        preparation_time: 0,
+        special: false,
+      };
+    },
+    selectById: (state, { payload }) => {
+      state.recipe = state.recipes.find(({ _id }) => _id === payload)!;
     },
   },
   extraReducers: (builder) => {
@@ -95,10 +120,20 @@ export const dishSlice = createSlice({
       })
       .addCase(createRecipe.rejected, (state) => {
         state.error = "error in adding recipe";
+      })
+      .addCase(updateRecipe.pending, (state) => {
+        state.status = "updating new recipe";
+      })
+      .addCase(updateRecipe.fulfilled, (state) => {
+        state.status = "recipe updated!";
+      })
+      .addCase(updateRecipe.rejected, (state) => {
+        state.error = "error in updating recipe";
       });
   },
 });
 
-export const { switch_view } = dishSlice.actions;
+export const { switch_view, cleanRecipeSelection, selectById } =
+  dishSlice.actions;
 
 export default dishSlice.reducer;

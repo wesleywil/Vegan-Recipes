@@ -2,10 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../../redux/store";
 import { fetchRecipes } from "../../../redux/dish/dish";
-import {
-  switch_delete_view,
-  switch_form_view,
-} from "../../../redux/admin/admin";
+import { switch_form_view } from "../../../redux/admin/admin";
+import { cleanRecipeSelection } from "../../../redux/dish/dish";
 
 import RecipeItem from "../../components/recipe_item/recipe_item.component";
 import SearchBar from "../../components/search_bar/search_bar.component";
@@ -28,6 +26,11 @@ const Main = () => {
       dispatch(fetchRecipes());
     }
   }, [status, recipes, hidden_delete, hidden_form]);
+
+  const handleNewRecipe = () => {
+    dispatch(cleanRecipeSelection());
+    dispatch(switch_form_view());
+  };
   return (
     <div className="h-full min-h-screen	w-full min-w-screen">
       <svg viewBox="0 0 450 150">
@@ -39,7 +42,7 @@ const Main = () => {
 
       <div className="w-1/2  mx-auto flex gap-2 my-2 px-4 font-bold text-white text-xl">
         <button
-          onClick={() => dispatch(switch_form_view())}
+          onClick={() => handleNewRecipe()}
           className="flex-none bg-[#358546] hover:bg-[#20522b]/70 px-2 py-0 rounded-full transform duration-700 ease-in-out"
         >
           New recipe
@@ -52,7 +55,7 @@ const Main = () => {
         {recipes.map((item, i) => (
           <RecipeItem
             key={i}
-            id={item.id}
+            id={item._id!}
             name={item.name}
             category={item.category}
             preparation_time={item.preparation_time}
