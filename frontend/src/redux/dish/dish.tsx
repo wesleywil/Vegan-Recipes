@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface Recipes {
-  id: string;
+  id?: string;
   name: string;
   description: string;
-  ingredients: Array<{ id: string }>;
+  ingredients?: Array<{ id: string }>;
   category: string;
   preparation_time: number;
   special: boolean;
@@ -54,6 +54,17 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
+export const createRecipe = createAsyncThunk(
+  "recipes/createRecipe",
+  async (data: any) => {
+    const res = await axios.post(
+      "http://localhost:3000/api/recipes/post",
+      data
+    );
+    return res.data;
+  }
+);
+
 export const dishSlice = createSlice({
   name: "dish",
   initialState,
@@ -75,6 +86,15 @@ export const dishSlice = createSlice({
       })
       .addCase(fetchRecipes.rejected, (state) => {
         state.error = "error";
+      })
+      .addCase(createRecipe.pending, (state) => {
+        state.status = "creating new recipe";
+      })
+      .addCase(createRecipe.fulfilled, (state) => {
+        state.status = "new recipe added!";
+      })
+      .addCase(createRecipe.rejected, (state) => {
+        state.error = "error in adding recipe";
       });
   },
 });
