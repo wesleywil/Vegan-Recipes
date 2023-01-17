@@ -76,6 +76,16 @@ export const updateRecipe = createAsyncThunk(
   }
 );
 
+export const deleteRecipe = createAsyncThunk(
+  "recipes/deleteRecipe",
+  async (id: string) => {
+    const res = await axios.delete(
+      `http://localhost:3000/api/recipes/delete/${id}`
+    );
+    return res.data;
+  }
+);
+
 export const dishSlice = createSlice({
   name: "dish",
   initialState,
@@ -96,6 +106,15 @@ export const dishSlice = createSlice({
     },
     selectById: (state, { payload }) => {
       state.recipe = state.recipes.find(({ _id }) => _id === payload)!;
+    },
+    filterByName: (state, { payload }) => {
+      let filteredRecipes = state.recipes.filter((item) => {
+        return item.name.toLowerCase().includes(payload);
+      });
+      return {
+        ...state,
+        recipes: filteredRecipes,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -129,11 +148,20 @@ export const dishSlice = createSlice({
       })
       .addCase(updateRecipe.rejected, (state) => {
         state.error = "error in updating recipe";
+      })
+      .addCase(deleteRecipe.pending, (state) => {
+        state.status = "deleting recipe";
+      })
+      .addCase(deleteRecipe.fulfilled, (state) => {
+        state.status = "recipe deleted!";
+      })
+      .addCase(deleteRecipe.rejected, (state) => {
+        state.error = "error in deleting recipe";
       });
   },
 });
 
-export const { switch_view, cleanRecipeSelection, selectById } =
+export const { switch_view, cleanRecipeSelection, selectById, filterByName } =
   dishSlice.actions;
 
 export default dishSlice.reducer;
