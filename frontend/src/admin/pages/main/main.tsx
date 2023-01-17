@@ -22,7 +22,12 @@ const Main = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (status === "idle") {
+    if (
+      status === "idle" ||
+      status === "new recipe added!" ||
+      status === "recipe updated!" ||
+      status === "recipe deleted!"
+    ) {
       dispatch(fetchRecipes());
     }
   }, [status, recipes, hidden_delete, hidden_form]);
