@@ -22,6 +22,11 @@ const RecipeItem = ({ ...item }: RecipeItemInfo) => {
     dispatch(selectById(item.id));
   };
 
+  const handleDelete = () => {
+    dispatch(switch_delete_view());
+    dispatch(selectById(item.id));
+  };
+
   return (
     <div className="w-full flex p-1">
       <div className="w-full self-center px-2 flex justify-between  text-white bg-[#358546d8]/60 z-10 rounded-xl">
@@ -42,7 +47,7 @@ const RecipeItem = ({ ...item }: RecipeItemInfo) => {
             Edit
           </button>
           <button
-            onClick={() => dispatch(switch_delete_view())}
+            onClick={() => handleDelete()}
             className="flex-none h-8 px-2  bg-red-500 hover:bg-red-300 text-white hover:text-gray-600 font-bold  rounded-xl transform duration-700 ease-in-out"
           >
             Del
