@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface Recipes {
+export interface Recipes {
   _id: string;
   name: string;
   description: string;
-  ingredients?: Array<{ id: string }>;
+  ingredients?: Array<string>;
   category: string;
   preparation_time: number;
   special: boolean;
@@ -123,10 +123,8 @@ export const dishSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchRecipes.fulfilled, (state, { payload }) => {
-        const special = payload.find((item: Recipes) => item.special);
         state.status = "succeeded";
         state.recipes = payload;
-        state.special_recipe = special;
       })
       .addCase(fetchRecipes.rejected, (state) => {
         state.error = "error";
