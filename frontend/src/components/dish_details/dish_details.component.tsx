@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../redux/store";
 import { switch_view } from "../../redux/dish/dish";
 
-import type { DishInfo } from "../main_dish/main_dish.component";
-
-const DishDetails = ({ ...item }: DishInfo) => {
-  const dispatch = useDispatch();
+const DishDetails = () => {
+  const item = useSelector((state: RootState) => state.dish.recipe);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <div className="centered z-10  md:w-96 pattern2 border border-black rounded-xl">
@@ -29,9 +30,9 @@ const DishDetails = ({ ...item }: DishInfo) => {
 
         <p className="text-sm p-2">{item.description}</p>
         <h2 className="text-xl font-semibold">Ingredients</h2>
-        {item.ingredients!.map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
+        {item.ingredients?.length
+          ? item.ingredients.map((ing, i) => <li key={i}>{ing}</li>)
+          : ""}
       </div>
     </div>
   );
