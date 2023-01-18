@@ -1,9 +1,14 @@
-import type { DishInfo } from "../main_dish/main_dish.component";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store";
+import { switch_view, selectById } from "../../redux/dish/dish";
+
 import ButtonDetails from "../button_details/button_details.component";
 
-const NormalDish = ({ ...info }: DishInfo) => {
-  const anything = () => {
-    console.log("TEST");
+const NormalDish = ({ item }: any) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const test = () => {
+    console.log("test");
   };
   return (
     <div
@@ -16,13 +21,18 @@ const NormalDish = ({ ...info }: DishInfo) => {
       }}
     >
       <div className="w-full h-full text-white bg-[#358546]/30 backdrop-blur-sm flex flex-col items-center justify-between  rounded-xl">
-        <h1 className="text-3xl font-semibold p-2">{info.name}</h1>
-        <h2 className="hidden">{info.description}</h2>
+        <h1 className="text-3xl font-semibold p-2">{item.name}</h1>
+        <h2 className="hidden">{item.description}</h2>
         <div>
-          <ButtonDetails handleClick={anything} />
+          <ButtonDetails
+            handleClick={() => {
+              dispatch(switch_view());
+              dispatch(selectById(item._id));
+            }}
+          />
         </div>
         <h3>
-          {info.category} - {info.preparation_time}m
+          {item.category} - {item.preparation_time}m
         </h3>
       </div>
     </div>

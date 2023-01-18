@@ -1,22 +1,18 @@
-import { useDispatch } from "react-redux";
-import { switch_view } from "../../redux/dish/dish";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../../redux/store";
+import { selectById, switch_view } from "../../redux/dish/dish";
 
 import ButtonDetails from "../button_details/button_details.component";
 
-export type DishInfo = {
-  name: string;
-  description: string;
-  ingredients?: string[];
-  category: string;
-  preparation_time: number;
-};
+const MainDish = () => {
+  const recipes = useSelector((state: RootState) => state.dish.recipes);
+  const dispatch = useDispatch<AppDispatch>();
 
-const MainDish = ({ ...info }: DishInfo) => {
-  const dispatch = useDispatch();
+  const special = recipes.find((item) => item.special);
 
-  const handleClick = () => {
-    dispatch(switch_view());
-  };
+  useEffect(() => {}, [special]);
+
   return (
     <div
       className="w-full px-4 py-24"
@@ -29,13 +25,19 @@ const MainDish = ({ ...info }: DishInfo) => {
     >
       <div className="w-11/12 mx-auto flex flex-col gap-2 items-center px-8 py-12 text-[white]/90 bg-[#358546]/40 backdrop-blur-sm rounded-xl">
         <h1 className="self-center text-6xl font-bold uppercase">
-          {info.name}
+          {special?.name}
         </h1>
-        <h2 className="self-center text-3xl">{info.description}</h2>
+        <h2 className="self-center text-3xl">{special?.description}</h2>
         <div className="flex gap-4 justify-center text-xl">
-          <h3>{info.category}</h3>-<h3>Time: {info.preparation_time}m</h3>
+          <h3>{special?.category}</h3>-
+          <h3>Time: {special?.preparation_time}m</h3>
         </div>
-        <ButtonDetails handleClick={handleClick} />
+        <ButtonDetails
+          handleClick={() => {
+            dispatch(switch_view());
+            dispatch(selectById(special?._id));
+          }}
+        />
       </div>
     </div>
   );
