@@ -2,10 +2,25 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { switch_view } from "../../redux/dish/dish";
+import { fetchIngredientsByIds } from "../../redux/ingredients/ingredients";
 
 const DishDetails = () => {
   const item = useSelector((state: RootState) => state.dish.recipe);
+  const view = useSelector((state: RootState) => state.dish.in_view);
+  const status = useSelector((state: RootState) => state.ingredients.status);
+  const ingredients = useSelector(
+    (state: RootState) => state.ingredients.ingredients
+  );
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    console.log("Dish Details Useeffect");
+    // if (status === "idle") {
+    dispatch(fetchIngredientsByIds(item.ingredients));
+
+    // }
+    //console.log("INGREDIENTS => ", ingredients);
+  }, [view]);
 
   return (
     <div className="centered z-10  md:w-96 pattern2 border border-black rounded-xl">
@@ -30,9 +45,12 @@ const DishDetails = () => {
 
         <p className="text-sm p-2">{item.description}</p>
         <h2 className="text-xl font-semibold">Ingredients</h2>
-        {item.ingredients?.length
-          ? item.ingredients.map((ing, i) => <li key={i}>{ing}</li>)
+        {ingredients.length
+          ? ingredients.map((item, i) => <li key={i}>{item.name}</li>)
           : ""}
+        {/* {item.ingredients?.length
+          ? item.ingredients.map((ing, i) => <li key={i}>{ing}</li>)
+          : ""} */}
       </div>
     </div>
   );

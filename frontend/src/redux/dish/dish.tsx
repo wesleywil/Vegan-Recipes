@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Ingredients } from "../ingredients/ingredients";
 import axios from "axios";
 
 export interface Recipes {
   _id: string;
   name: string;
   description: string;
-  ingredients?: Array<string>;
+  ingredients?: Array<Ingredients>;
   category: string;
   preparation_time: number;
   special: boolean;
