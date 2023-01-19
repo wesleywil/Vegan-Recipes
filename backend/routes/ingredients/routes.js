@@ -27,6 +27,19 @@ ingredientsRoutes.get('/get', async(req, res)=>{
     }
 })
 
+ingredientsRoutes.post('/getMultiple', async(req, res)=>{
+    try{
+        const data = await ingredientsModel.find({
+             '_id': { 
+                $in: req.body.ids
+            }
+        })
+        res.json(data)
+    }catch(error){
+        res.status(500).json({message:error.message})
+    }
+})
+
 // Get by ID Method
 ingredientsRoutes.get('/get/:id', async(req, res)=>{
    try {
