@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import dishReducer from "./dish/dish";
 import adminReducer from "./admin/admin";
+import ingredientsReducer from "./ingredients/ingredients";
 
 export const store = configureStore({
     reducer:{
         dish:dishReducer,
-        admin:adminReducer
+        ingredients:ingredientsReducer,
+        admin:adminReducer,
     }
 })
 
