@@ -8,12 +8,14 @@ export interface Ingredients {
 
 export interface IngredientsState {
   ingredients: Array<Ingredients>;
+  ingredientsById: Array<Ingredients>;
   status: string;
   error: any;
 }
 
 const initialState: IngredientsState = {
   ingredients: [],
+  ingredientsById: [],
   status: "idle",
   error: null,
 };
@@ -60,7 +62,7 @@ export const ingredientsSlice = createSlice({
       })
       .addCase(fetchIngredientsByIds.fulfilled, (state, { payload }) => {
         state.status = "succeeded in getting ingredients by IDS";
-        state.ingredients = payload;
+        state.ingredientsById = payload;
       })
       .addCase(fetchIngredientsByIds.rejected, (state) => {
         state.error = "error in getting ingredients by IDS";

@@ -9,6 +9,9 @@ import RecipeItem from "../../components/recipe_item/recipe_item.component";
 import SearchBar from "../../components/search_bar/search_bar.component";
 import DeleteConfirmation from "../../components/delete_confirmation/delete_confirmation.component";
 import Form from "../../components/form/form.component";
+import RecipeIngredients from "../../components/recipe_ingredients/recipe_ingredients.component";
+
+import { FaPlus } from "react-icons/fa";
 
 const Main = () => {
   const status = useSelector((state: RootState) => state.dish.status);
@@ -18,6 +21,9 @@ const Main = () => {
   );
   const hidden_delete = useSelector(
     (state: RootState) => state.admin.delete_hidden
+  );
+  const hidden_ingredients = useSelector(
+    (state: RootState) => state.admin.ingredients_hidden
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -38,11 +44,13 @@ const Main = () => {
   };
   return (
     <div className="h-full min-h-screen	w-full min-w-screen">
-      <svg viewBox="0 0 450 150">
+      <svg className="customSvg" viewBox="0 0 450 150">
         <text className="svgText" x="50" y="90">
           Admin
         </text>
       </svg>
+
+      {hidden_ingredients ? "" : <RecipeIngredients />}
       {hidden_form ? "" : <Form />}
 
       <div className="w-1/2  mx-auto flex gap-2 my-2 px-4 font-bold text-white text-xl">
@@ -50,7 +58,7 @@ const Main = () => {
           onClick={() => handleNewRecipe()}
           className="flex-none bg-[#358546] hover:bg-[#20522b]/70 px-2 py-0 rounded-full transform duration-700 ease-in-out"
         >
-          New recipe
+          <FaPlus />
         </button>
         <SearchBar />
       </div>
