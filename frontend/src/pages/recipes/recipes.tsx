@@ -22,7 +22,7 @@ const Recipes = () => {
   return (
     <div className=" h-full min-h-screen	 w-screen flex flex-col ">
       {in_view ? <DishDetails /> : ""}
-      <svg viewBox="0 0 450 150">
+      <svg className="customSvg" viewBox="0 0 450 150">
         <text className="svgText" x="50" y="90">
           Recipes
         </text>
