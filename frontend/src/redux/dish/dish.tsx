@@ -70,7 +70,7 @@ export const updateRecipe = createAsyncThunk(
   "recipes/updateRecipe",
   async (data: any) => {
     const res = await axios.patch(
-      `http://localhost:3000/api/recipes/update/${data.id}`,
+      `http://localhost:3000/api/recipes/update/${data._id}`,
       data
     );
     return res.data;

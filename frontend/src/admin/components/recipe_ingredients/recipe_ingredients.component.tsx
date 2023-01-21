@@ -8,6 +8,7 @@ import {
   add_ingredient,
   remove_ingredient,
 } from "../../../redux/ingredients/ingredients";
+import { updateRecipe } from "../../../redux/dish/dish";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
 
 const RecipeIngredients = () => {
@@ -21,6 +22,20 @@ const RecipeIngredients = () => {
   const status = useSelector((state: RootState) => state.ingredients.status);
   const dispatch = useDispatch<AppDispatch>();
 
+  const handleUpdateRecipe = () => {
+    let x: Array<string> = [];
+    ingredientsById.forEach((item) => {
+      x = [...x, item._id];
+    });
+    const newData = {
+      ...item,
+      ingredients: x,
+    };
+    console.log("NEW DATA=> ", newData);
+    dispatch(updateRecipe(newData));
+    dispatch(switch_ingredients_view());
+  };
+
   useEffect(() => {
     console.log("Recipes Ingredients Components!");
     dispatch(fetchIngredientsByIds(item.ingredients));
@@ -28,6 +43,7 @@ const RecipeIngredients = () => {
       dispatch(fetchIngredients());
     }
   }, [item]);
+
   return (
     <div className="centered z-20  md:w-1/2 xl:w-1/3 pattern2 border border-black rounded-xl">
       <div className="bg-[#358546]/80 text-white font-bold flex justify-between rounded-t-xl p-1">
@@ -85,7 +101,10 @@ const RecipeIngredients = () => {
           </div>
         </div>
         <div className="flex justify-center my-2 ">
-          <button className="text-2xl text-white font-semibold bg-[#358546] hover:bg-[#20522b]/70 px-2 py-1 rounded-full transform duration-700 ease-in-out">
+          <button
+            onClick={() => handleUpdateRecipe()}
+            className="text-2xl text-white font-semibold bg-[#358546] hover:bg-[#20522b]/70 px-2 py-1 rounded-full transform duration-700 ease-in-out"
+          >
             Update
           </button>
         </div>
