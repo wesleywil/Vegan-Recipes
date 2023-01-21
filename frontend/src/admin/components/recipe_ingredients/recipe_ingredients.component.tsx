@@ -5,6 +5,8 @@ import { switch_ingredients_view } from "../../../redux/admin/admin";
 import {
   fetchIngredientsByIds,
   fetchIngredients,
+  add_ingredient,
+  remove_ingredient,
 } from "../../../redux/ingredients/ingredients";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
 
@@ -48,7 +50,10 @@ const RecipeIngredients = () => {
                   key={i}
                 >
                   {ing.name}
-                  <button className="text-xl mr-2 text-red-600 hover:text-red-400 self-center transform duration-700 ease-in-out">
+                  <button
+                    onClick={() => dispatch(remove_ingredient(ing))}
+                    className="text-xl mr-2 text-red-600 hover:text-red-400 self-center transform duration-700 ease-in-out"
+                  >
                     <FaTrashAlt />
                   </button>
                 </li>
@@ -65,7 +70,10 @@ const RecipeIngredients = () => {
                   className="mr-2 text-2xl flex gap-2 justify-between w-full"
                   key={i}
                 >
-                  <button className="ml-2 text-xl text-green-600 hover:text-green-400 self-center transform duration-700 ease-in-out">
+                  <button
+                    onClick={() => dispatch(add_ingredient(ing))}
+                    className="ml-2 text-xl text-green-600 hover:text-green-400 self-center transform duration-700 ease-in-out"
+                  >
                     <FaPlus />
                   </button>
                   {ing.name}
@@ -75,6 +83,11 @@ const RecipeIngredients = () => {
               <h3 className="text-xl text-center ">NO INGREDIENTS</h3>
             )}
           </div>
+        </div>
+        <div className="flex justify-center my-2 ">
+          <button className="text-2xl text-white font-semibold bg-[#358546] hover:bg-[#20522b]/70 px-2 py-1 rounded-full transform duration-700 ease-in-out">
+            Update
+          </button>
         </div>
       </div>
     </div>

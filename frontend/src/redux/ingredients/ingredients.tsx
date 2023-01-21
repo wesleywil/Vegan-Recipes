@@ -44,7 +44,25 @@ export const fetchIngredientsByIds = createAsyncThunk(
 export const ingredientsSlice = createSlice({
   name: "ingredients",
   initialState,
-  reducers: {},
+  reducers: {
+    add_ingredient: (state, { payload }) => {
+      const item = state.ingredientsById.find((obj) => obj._id === payload._id);
+      if (!item) {
+        return {
+          ...state,
+          ingredientsById: [...state.ingredientsById, payload],
+        };
+      }
+      return {
+        ...state,
+      };
+    },
+    remove_ingredient: (state, { payload }) => {
+      state.ingredientsById = state.ingredientsById.filter(
+        (obj) => obj._id !== payload._id
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
@@ -70,4 +88,5 @@ export const ingredientsSlice = createSlice({
   },
 });
 
+export const { add_ingredient, remove_ingredient } = ingredientsSlice.actions;
 export default ingredientsSlice.reducer;
